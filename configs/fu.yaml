@@ -1,0 +1,75 @@
+#Headless browser option
+browser:
+  phantomjs: "phantomjs"
+  # gecko: "slimerjs"
+
+#If you want to have multiple snapping files, set the file name here
+snap_file: "javascript/fu_snap.js"
+
+# Type the name of the directory that shots will be stored in
+directory: 'first-utility'
+
+# Add only 2 domains, key will act as a label
+domains:
+  live: "http://web01.stage.impello.co.uk"
+  staging: "http://oeweb01.stage.impello.co.uk"
+
+#Type screen widths below, here are a couple of examples
+screen_widths:
+  - 320
+  - 480
+  - 600
+  - 810
+  - 992
+  - 1024
+
+#Type page URL paths below, here are a couple of examples
+paths:
+  Home: /
+  Home_Energy: /energy
+  # Compare_tariffs: /energy/compare-tariffs
+  # Switching_explained: /energy/switching-explained
+  # Submit_a_meter_read: /energy/submit-a-meter-read
+  # Switch_Now: /energy/compare-tariffs
+  # Changing_tariff: /myaccount/changetariff
+  # About_Us: /about-us
+  # What_makes_us_different: /about-us/who-and-why
+  # Service: /about-us/service
+  # Saving: /about-us/saving
+  # Technology: /about-us/technology
+  # Company: /about-us/company
+  # Contact_Us: /contact-us
+  # Careers: /about-us/careers
+  # Blog: /the-utility-room
+  # Help_and_Advice: /help
+  # My_account: /help/My_Account
+  # Bills_and_payments: /help/Bills_and_Payments
+  # My_meter: /help/My_Meter
+  # Tariffs: /help/Tariffs
+  # Switching: /help/Switching_to_First_Utility
+  # Emergencies: /help/Emergency_Information
+  # Business: /business-energy
+  # # My account
+  # My_Account_Overview: /myaccount/energy
+  # My_Account_My_Energy: /myaccount/myenergy
+  # My_Account_Bills_and_payments: /myaccount/bills
+  # My_Account_Submit_Reads: /myaccount/viewreads
+  # My_Account_Usage_Graphs: /myaccount/graph/electricity
+  # My_Account_My_Details: /myaccount/details
+  # My_Account_Contact_us: /myaccount/contact
+
+# If you don't want to name the paths explicitly you can use a yaml
+# collection as follows, and names will be derived by replacing / with _
+#
+# paths:
+#  - /imghp
+#  - /maps
+
+#Amount of fuzz ImageMagick will use
+fuzz: '20%'
+
+#Set the number of days to keep the site spider file
+spider_days:
+  - 10
+
+threshold: 50

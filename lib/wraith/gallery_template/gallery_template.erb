@@ -1,68 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../foundation-5.5.0/css/foundation.min.css">
         <style type="text/css">
             .short-screenshot {
                 height: 200px;
                 width: 200px;
             }
+            .fixed {
+                position: fixed;
+                max-height: 400px;
+                max-width: 250px;
+                overflow-y: scroll;
+            }
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="row page-header">
+        <div class="row">
+            <div class="row">
                 <h1>List of screenshots for <%= location %> <small>taken <%= Time.now.strftime('%Y/%m/%d %H:%M:%S') %></small></h1>
             </div>
             <div class="row">
                 <!-- <%= directories.length %> -->
-                <div class="col-lg-2">
-                    <div class="panel">
-                        <div class="panel-heading">Screenshots:</div>
-                        <ul class="list-group list-group-flush">
+                <div data-magellan-expedition="fixed">
+                  <dl class="sub-nav">
                             <% directories.keys.each do |dir| %>
-                                <li class="list-group-item"><a href="#<%=path%><%=dir%>"><%=dir.gsub('__', '/')%></a></li>
+                                <dd data-magellan-arrival="<%=dir%>"><a href="#<%=path%><%=dir%>"><%=dir.gsub('__', '/')%></a></dd>
                             <% end %>
-                        </ul>
+                        </dl>
                     </div>
                 </div>
-                <div class="col-lg-10">
-                    <% directories.each do |dir, sizes| %>
-                      <% sizes.to_a.sort.each do |size, files| %>
-                        <div class="row">
-                          <a name="<%= dir %>"></a>
-                            <% if files[:data] > threshold %>
-                              <h2 style="color:#CC0101"><%= dir.gsub('__', '/') %> <span class="glyphicon glyphicon-remove"></span></h2>
-                            <% else %>
-                              <h2><%= dir.gsub('__', '/') %></h2>
+                <div class="column small-10">
+                    <ul class="accordion" data-accordion >
+                        <% directories.each do |dir, sizes| %>
+                        <li data-magellan-destination="<%= dir %>" id="<%= dir %>" class="accordion-navigation columns">
+                                  <a href="#<%= dir %>Content">
+                                      <h3><%= dir.gsub('__', '/') %></h3>
+                                  </a>
+                                    <div id="<%= dir %>Content" class="content columns">
+                          <% sizes.to_a.sort.each do |size, files| %>
+                              
+
+                                        <h4 class="col-lg-1 text-muted"><%=size%>px</h4>
+                                        <% files[:variants].each do |file| %>
+                                            <div class="columns small-4">
+                                                <a href="<%=file[:filename]%>">
+                                                    <img class="short-screenshot img-thumbnail" src="<%=path%><%=file[:thumb]%>">
+                                                </a>
+                                                <p class="text-center"><%=file[:name]%></p>
+                                            </div>
+                                        <% end %>
+                                        <div class="columns small-4">
+                                            <% if files[:diff] %>
+                                                <a href="<%=files[:diff][:filename]%>">
+                                                    <img class="short-screenshot img-thumbnail" src="<%=path%><%=files[:diff][:thumb]%>">
+                                                </a>
+                                            <% end %>
+                                            <p class="text-center">diff</p>
+                                            <p class="text-center text-muted"><%=files[:data]%> % different</p>
+
+                                        </div>
+                                    
+                                
                             <% end %>
-                        </div>
-
-                            <div class="row">
-                                <h3 class="col-lg-1 text-muted"><%=size%>px</h3>
-                                <% files[:variants].each do |file| %>
-                                    <div class="col-lg-3">
-                                        <a href="<%=file[:filename]%>">
-                                            <img class="short-screenshot img-thumbnail" src="<%=path%><%=file[:thumb]%>">
-                                        </a>
-                                        <p class="text-center"><%=file[:name]%></p>
-                                    </div>
-                                <% end %>
-                                <div class="col-lg-3">
-                                    <% if files[:diff] %>
-                                        <a href="<%=files[:diff][:filename]%>">
-                                            <img class="short-screenshot img-thumbnail" src="<%=path%><%=files[:diff][:thumb]%>">
-                                        </a>
-                                    <% end %>
-                                    <p class="text-center">diff</p>
-                                    <p class="text-center text-muted"><%=files[:data]%> % different</p>
-
                                 </div>
-                            </div>
+                            </li>
                         <% end %>
-                    <% end %>
+                    </ul>
                 </div>
             </div>
         </div>
+        <script src="../foundation-5.5.0/js/vendor/jquery.js"></script>
+<script src="../foundation-5.5.0/js/foundation/foundation.js"></script>
+<script src="../foundation-5.5.0/js/foundation/foundation.magellan.js"></script>
+<script src="../foundation-5.5.0/js/foundation/foundation.accordion.js"></script>
+<script type="text/javascript">
+$(document).foundation();
+</script>
     </body>
 </html>
